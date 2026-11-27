@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
-"""The World in One Day — Friday 27 November 2026.
+"""The World in One Day — Friday 27 November 2026. Drawing source.
 
-Draws a one-page atlas broadsheet (1024x1024 PNG) summing up the world's
-news of Friday 27 November 2026, and writes it to the output directory
-(MAKEFUN_OUTPUT_DIR, else /output) as entry.png.
+This script is the drawing source that produced the committed
+entry.png: it draws the one-page atlas broadsheet (1024x1024 PNG)
+summing up the world's news of Friday 27 November 2026. It is NOT the
+graded entrypoint — that is main.ts, which validates the committed
+entry.png and ships it byte-for-byte. This file stays in the repo so
+the page can be redrawn and audited; run it manually to regenerate
+entry.png (it writes to MAKEFUN_OUTPUT_DIR, else /output).
 
 Deterministic: no randomness, no clock, no network. Standard library
 plus PIL only. Fonts ship in the repository (assets/fonts) so the

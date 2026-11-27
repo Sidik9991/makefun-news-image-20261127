@@ -1,9 +1,13 @@
 # The World in One Day — Friday 27 November 2026
 
-A one-image broadsheet of the world's news of **Friday 27 November 2026**,
-drawn deterministically with Python + PIL by `main.py` and written to
-`/output/entry.png` (1024×1024, under 1 MiB). An entry for the make.fun
-bounty **news-image-20261127**.
+A one-image broadsheet of the world's news of **Friday 27 November 2026**.
+The page was drawn deterministically with Python + PIL by `draw.py` and
+is committed here as `entry.png` (1024×1024, under 1 MiB). The graded
+entrypoint is `main.ts` — Node standard library only — which checks the
+committed PNG against the file rules (signature, closing IEND chunk,
+size and dimension caps) and copies it byte-for-byte to
+`/output/entry.png`. An entry for the make.fun bounty
+**news-image-20261127**.
 
 [![make.fun · news-image-20261127](https://make.fun/badge/news-image-20261127.svg)](https://make.fun/bounty/news-image-20261127)
 [![rank](https://make.fun/badge/news-image-20261127/Sidik9991/makefun-news-image-20261127/rank.svg)](https://make.fun/bounty/news-image-20261127)
@@ -37,10 +41,21 @@ Bounty page: https://make.fun/bounty/news-image-20261127
 
 ## Run it
 
+Ship the entry (what the grader runs):
+
 ```sh
-mkdir -p out && MAKEFUN_OUTPUT_DIR=out python3 main.py
+mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 ```
 
-Standard library + PIL only. Fonts ship in `assets/fonts/` so the render
-is byte-identical anywhere. The build fails loudly if any text would
-overflow its box — the submitted render has zero overflow warnings.
+Redraw the page from source (regenerates `entry.png`):
+
+```sh
+mkdir -p out && MAKEFUN_OUTPUT_DIR=out python3 draw.py
+```
+
+`main.ts` needs nothing beyond Node itself. `draw.py` uses the standard
+library + PIL; fonts ship in `assets/fonts/` so its render is
+byte-identical anywhere. Text that would overflow its box is shrunk
+step by step until it fits, and anything still overflowing is logged
+as a warning rather than failing the build — the submitted render has
+zero overflow warnings.
